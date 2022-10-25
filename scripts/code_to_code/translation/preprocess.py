@@ -3,17 +3,14 @@ from parser.utils import (remove_comments_and_docstrings,
                    index_to_code_token,
                    tree_to_variable_index)
 from tree_sitter import Language, Parser
-from transformers import PLBartTokenizer
 
 parsers={}        
 for lang in ['java', 'csharp']:
-    substr = 'csharp'
-    if lang == substr:
-        lang = ''.join(lang.split(substr)) + 'c_sharp'
+    if lang == 'csharp':
+        lang = 'c_sharp'
     LANGUAGE = Language('parser/my-languages.so', lang)
     parser = Parser()
     parser.set_language(LANGUAGE)
-    parsers[lang]= parser
 
 def flatten_ast(root_node, index_to_code, tokenizer):
     root_node_index = root_node.start_point, root_node.end_point
@@ -21,10 +18,10 @@ def flatten_ast(root_node, index_to_code, tokenizer):
     if len(root_node.children) == 1:
         root_node = prune_single(root_node)    
     # mask hardcoded literals
-    if root_node.type == 'decimal_integer_literal':
-            return '[MASK_NUMBER] '
-    if root_node.type == 'character_literal' or root_node.type == 'string_literal':
-            return '[MASK_STRING] '
+    # if root_node.type == 'decimal_integer_literal':
+    #         return '[MASK_NUMBER] '
+    # if root_node.type == 'character_literal' or root_node.type == 'string_literal':
+    #         return '[MASK_STRING] '
     # return code token if no more children
     if len(root_node.children) == 0:
         if root_node_index in index_to_code:
@@ -35,7 +32,7 @@ def flatten_ast(root_node, index_to_code, tokenizer):
         # indentify the parent nodes
         code_tokens = '<' + root_node.type + ',left> '
         for child in root_node.children:
-            code_tokens += flatten_ast(child,index_to_code)
+            code_tokens += flatten_ast(child,index_to_code,tokenizer)
         code_tokens += '<' + root_node.type + ',right> '
         return code_tokens
 
@@ -51,9 +48,7 @@ def extract_ast(code, lang, tokenizer):
         code=remove_comments_and_docstrings(code,lang)
     except:
         pass
-    if lang == 'cs':
-        lang = 'c_sharp'
-    tree = parsers[lang].parse(bytes(code,'utf8'))    
+    tree = parser.parse(bytes(code,'utf8'))    
     root_node = tree.root_node  
     tokens_index=tree_to_token_index(root_node)
     code=code.split('\n')

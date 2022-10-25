@@ -20,7 +20,9 @@ def load_data(args):
             open(args.tgt_file, 'r', encoding='utf-8') as f2:
         for src, tgt in zip(f1, f2):
             src_extracted = extract_ast(src.strip(), args.src_lang, tokenizer)
-            data.append({'src': src_extracted, 'tgt': tgt.strip()})
+            # tgt_extracted = extract_ast(tgt.strip(), args.tgt_lang, tokenizer)
+            tgt_extracted = ' '.join(tokenizer.tokenize(tgt.strip()))
+            data.append({'src': src_extracted, 'tgt': tgt_extracted})
     return data
 
 def process(args):
