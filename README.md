@@ -54,7 +54,7 @@ cd ..
 #### Step 2. Prepare the data
 
 ```bash
-bash prepare.sh
+bash prepare.sh src_lang tgt_lang
 cd ../../..
 ```
 
@@ -108,7 +108,7 @@ cd ../../../..
 
 ```bash
 cd scripts/code_to_code/translation
-bash prepare.sh
+bash prepare.sh src_lang tgt_lang
 bash run.sh GPU_IDS src_lang tgt_lang model_size
 cd ../../..
 ```
