@@ -2,7 +2,7 @@
 
 <h1>Group 2 PLBART</h1>
 
-This project covers implementing AST for the PLBART model. Our model is fine-tuned using the CodeXGlue dataset. The original PLBART code can be found [here](https://github.com/wasiahmad/PLBART). The original paper is also linked, [Unified Pre-training for Program Understanding and Generation](https://www.aclweb.org/anthology/2021.naacl-main.211/).
+This project covers the implementation of AST for the PLBART model. Our model is fine-tuned using the CodeXGlue dataset. The original PLBART code can be found [here](https://github.com/wasiahmad/PLBART). The original paper is also linked, [Unified Pre-training for Program Understanding and Generation](https://www.aclweb.org/anthology/2021.naacl-main.211/). We used WSL2 for the project.
 
 </div>
 
@@ -33,6 +33,7 @@ We fine-tune and evaluate PLBART with AST on the code-to-code downstream task fr
             <th>Data</th>
             <th>Scripts</th>
             <th>Checkpoints</th>
+            <th>Results</th>
         </tr>
     </thead>
     <tbody>
@@ -42,12 +43,13 @@ We fine-tune and evaluate PLBART with AST on the code-to-code downstream task fr
             <td>Java, C#</td>
             <td rowspan=4><a href="https://drive.google.com/file/d/15jokCxFQ9BUbptMsrfj4RdH_KiNkTRP2" target="_blank">[LINK]</a></td>
             <td><a href="https://github.com/wasiahmad/PLBART/tree/main/scripts/code_to_code/translation">[LINK]</a></td>
-            <td><a href="https://drive.google.com/drive/folders/1KKdBWTRjnxC70icQrCbCXuj6ahMFQlE0" target="_blank">[LINK]</a></td>
+            <td><a href="https://drive.google.com/drive/folders/1TGbjJLAaHBc4NO9Ntwa6Zh7togpy77Kv" target="_blank">[LINK]</a></td>
+            <td><a href="https://drive.google.com/drive/folders/1TGbjJLAaHBc4NO9Ntwa6Zh7togpy77Kv" target="_blank">[LINK]</a></td>
         </tr>
     </tbody>
 </table>
 
-#### Step1. Download PLBART checkpoint
+#### Step 1. Download original PLBART base model
 
 ```bash
 cd pretrain
@@ -55,15 +57,7 @@ bash download.sh
 cd ..
 ```
 
-#### Step2. Download the data
-
-```bash
-cd data/codeXglue
-bash download.sh
-cd ../..
-```
-
-#### Step3. Build parser for CodeBLEU evaluation
+#### Step 2. Build parser for CodeBLEU evaluation
 
 ```bash
 cd evaluation/CodeBLEU/parser
@@ -71,7 +65,7 @@ bash build.sh
 cd ../../..
 ```
 
-#### Step4. Prepare the data, train and evaluate PLBART
+#### Step 3. Prepare the data, train and evaluate PLBART
 
 ```bash
 cd scripts/code_to_code/translation
@@ -85,3 +79,22 @@ bash run.sh 0 java cs base
 ```
 
 Note. We fine-tuned our model on 1 `NVIDIA Quadro P1000` (4gb) GPU (~ 8 hours).
+
+______________________________________________________________________
+## Evaluation
+
+If you wish to only evaluate the model against the CodeXGLUE benchmark. 
+
+#### Step 1. Download PLBART AST checkpoints
+
+The folders for the checkpoints can be found [here](https://drive.google.com/drive/folders/1TGbjJLAaHBc4NO9Ntwa6Zh7togpy77Kv). Download both folders and move them to the following directory:
+
+```
+cd scripts/code-to-code/translation
+```
+
+#### Step 2. Evaluate against CodeXGLUE
+In the run.sh file comment out the fine_tune function and only run generate. After following these steps you can run the sh file.
+```bash
+bash run.sh GPU_IDS src_lang tgt_lang model_size
+```
