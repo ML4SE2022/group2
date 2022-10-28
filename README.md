@@ -76,7 +76,7 @@ bash download.sh
 cd ..
 ```
 
-#### Step 2. Build parser for CodeBLEU evaluation
+#### Step 2. Build parser for CodeBLEU evaluation (skip if parser is already built)
 
 ```bash
 cd evaluation/CodeBLEU/parser
