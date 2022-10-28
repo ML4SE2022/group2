@@ -20,9 +20,9 @@ bash install_env.sh
 ```
 
 ______________________________________________________________________
-## Data preprocessing
+## Preprocessing the dataset
+If you wish to only preprocess the dataset follow these steps.
 
-For preprocessing the dataset.
 #### Step 1. Build parser
 
 ```bash
