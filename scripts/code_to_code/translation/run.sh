@@ -28,7 +28,7 @@ SOURCE=$2
 TARGET=$3
 MODEL_SIZE=${4:-base}
 
-PATH_2_DATA=${HOME_DIR}/data/codeXglue/code-to-code/translation
+PATH_2_DATA=${HOME_DIR}/data/codeXglue/code-to-code/dataset
 CB_EVAL_SCRIPT=${HOME_DIR}/evaluation/CodeBLEU/calc_code_bleu.py
 
 ARCH=mbart_${MODEL_SIZE}

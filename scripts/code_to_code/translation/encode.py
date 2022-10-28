@@ -14,13 +14,12 @@ from preprocess import extract_ast
 from transformers import PLBartTokenizer
 
 def load_data(args):
-    tokenizer = PLBartTokenizer.from_pretrained("uclanlp/plbart-java-cs", src_lang=args.src_lang, tgt_lang=args.tgt_lang)
+    tokenizer = PLBartTokenizer.from_pretrained("uclanlp/plbart-java-cs", src_lang="java", tgt_lang="cs")
     data = []
     with open(args.src_file, 'r', encoding='utf-8') as f1, \
             open(args.tgt_file, 'r', encoding='utf-8') as f2:
         for src, tgt in zip(f1, f2):
             src_extracted = extract_ast(src.strip(), args.src_lang, tokenizer)
-            # tgt_extracted = extract_ast(tgt.strip(), args.tgt_lang, tokenizer)
             tgt_extracted = ' '.join(tokenizer.tokenize(tgt.strip()))
             data.append({'src': src_extracted, 'tgt': tgt_extracted})
     return data

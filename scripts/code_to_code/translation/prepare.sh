@@ -2,7 +2,7 @@
 
 CURRENT_DIR=$(pwd)
 HOME_DIR=$(realpath ../../..)
-DATA_DIR=${HOME_DIR}/data/codeXglue/code-to-code/translation
+DATA_DIR=${HOME_DIR}/data/codeXglue/code-to-code/dataset
 SPM_DIR=${HOME_DIR}/sentencepiece
 
 function spm_preprocess() {
