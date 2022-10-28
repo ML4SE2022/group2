@@ -14,15 +14,9 @@ for lang in ['java', 'csharp']:
 
 def flatten_ast(root_node, index_to_code, tokenizer):
     root_node_index = root_node.start_point, root_node.end_point
-    # prune to closest source range
+    # prune to closest child
     if len(root_node.children) == 1:
-        root_node = prune_single(root_node)    
-    # mask hardcoded literals
-    # if root_node.type == 'decimal_integer_literal':
-    #         return '[MASK_NUMBER] '
-    # if root_node.type == 'character_literal' or root_node.type == 'string_literal':
-    #         return '[MASK_STRING] '
-    # return code token if no more children
+        root_node = prune_single(root_node)
     if len(root_node.children) == 0:
         if root_node_index in index_to_code:
             return ' '.join(tokenizer.tokenize(index_to_code[root_node_index])) + ' '

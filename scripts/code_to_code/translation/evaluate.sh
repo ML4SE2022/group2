@@ -26,79 +26,17 @@ done
 GPU=$1
 SOURCE=$2
 TARGET=$3
-MODEL_SIZE=${4:-base}
 
 PATH_2_DATA=${HOME_DIR}/data/codeXglue/code-to-code/translation
 CB_EVAL_SCRIPT=${HOME_DIR}/evaluation/CodeBLEU/calc_code_bleu.py
 
-ARCH=mbart_${MODEL_SIZE}
-PRETRAINED_MODEL_NAME=plbart_${MODEL_SIZE}.pt
 PRETRAIN=${HOME_DIR}/pretrain/${PRETRAINED_MODEL_NAME}
-SPM_MODEL=${HOME_DIR}/sentencepiece/sentencepiece.bpe.model
 langs=java,cs
 
 SAVE_DIR=${CURRENT_DIR}/${SOURCE}_${TARGET}
-mkdir -p ${SAVE_DIR}
 USER_DIR=${HOME_DIR}/source
 
 export CUDA_VISIBLE_DEVICES=$GPU
-
-function fine_tune() {
-
-    OUTPUT_FILE=${SAVE_DIR}/finetune.log
-
-    # we have 10.3k train examples, use a batch size of 16 gives us 644 steps
-    # we run for a maximum of 50 epochs
-    # setting the batch size to 8 with update-freq to 2
-    # performing validation at every 500 steps, saving the last 10 checkpoints
-
-    fairseq-train $PATH_2_DATA/data-bin \
-        --user-dir $USER_DIR \
-        --langs $langs \
-        --task translation_without_lang_token \
-        --arch $ARCH \
-        --layernorm-embedding \
-        --truncate-source \
-        --source-lang $SOURCE \
-        --target-lang $TARGET \
-        --criterion label_smoothed_cross_entropy \
-        --label-smoothing 0.1 \
-        --batch-size 4 \
-        --update-freq 4 \
-        --max-epoch 30 \
-        --optimizer adam \
-        --adam-eps 1e-06 \
-        --adam-betas '(0.9, 0.98)' \
-        --lr-scheduler polynomial_decay \
-        --lr 5e-05 \
-        --min-lr -1 \
-        --warmup-updates 1000 \
-        --max-update 50000 \
-        --dropout 0.1 \
-        --attention-dropout 0.1 \
-        --weight-decay 0.0 \
-        --seed 1234 \
-        --log-format json \
-        --log-interval 100 \
-        --restore-file $PRETRAIN \
-        --reset-dataloader \
-        --reset-optimizer \
-        --reset-meters \
-        --reset-lr-scheduler \
-        --eval-bleu \
-        --eval-bleu-detok space \
-        --eval-tokenized-bleu \
-        --eval-bleu-remove-bpe sentencepiece \
-        --eval-bleu-args '{"beam": 5}' \
-        --best-checkpoint-metric bleu \
-        --maximize-best-checkpoint-metric \
-        --no-epoch-checkpoints \
-        --patience 5 \
-        --ddp-backend no_c10d \
-        --save-dir $SAVE_DIR \
-        2>&1 | tee ${OUTPUT_FILE}
-
-}
 
 function generate() {
 
@@ -139,5 +77,4 @@ function generate() {
 
 }
 
-fine_tune
 generate
