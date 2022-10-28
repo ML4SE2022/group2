@@ -108,8 +108,8 @@ If you wish to only evaluate the model against the CodeXGLUE benchmark.
 
 The folders for the fine-tuned checkpoints can be found [here](https://drive.google.com/drive/folders/1TGbjJLAaHBc4NO9Ntwa6Zh7togpy77Kv). Download both folders and move them to the following directory:
 
-```
-cd scripts/code-to-code/translation
+```bash
+cd scripts/code_to_code/translation
 ```
 
 #### Step 2. Evaluate against CodeXGLUE
