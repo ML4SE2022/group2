@@ -20,20 +20,19 @@ bash install_env.sh
 ```
 
 ______________________________________________________________________
-## Preprocessing the dataset
+## Preprocessing Step
 If you wish to only preprocess the dataset follow these steps.
 
 #### Step 1. Build parser
 
 ```bash
-cd evaluation/CodeBLEU/parser
+cd scripts/code_to_code/translation/parser
 bash build.sh
-cd ../../..
+cd ..
 ```
 #### Step 2. Prepare the data
 
 ```bash
-cd scripts/code_to_code/translation
 bash prepare.sh
 cd ../../..
 ```
@@ -79,9 +78,9 @@ cd ..
 #### Step 2. Build parser for CodeBLEU evaluation (skip if parser is already built)
 
 ```bash
-cd evaluation/CodeBLEU/parser
+cd scripts/code_to_code/translation/parser
 bash build.sh
-cd ../../..
+cd ../../../..
 ```
 
 #### Step 3. Prepare the data, train and evaluate PLBART
@@ -106,7 +105,7 @@ If you wish to only evaluate the model against the CodeXGLUE benchmark.
 
 #### Step 1. Download PLBART AST fine-tuned checkpoints
 
-The folders for the fine-tuned checkpoints can be found [here](https://drive.google.com/drive/folders/1TGbjJLAaHBc4NO9Ntwa6Zh7togpy77Kv). Download both folders and move them to the following directory:
+The folders for the fine-tuned models can be found [here](https://drive.google.com/drive/folders/1TGbjJLAaHBc4NO9Ntwa6Zh7togpy77Kv). Download both folders and move them to the following directory:
 
 ```bash
 cd scripts/code_to_code/translation

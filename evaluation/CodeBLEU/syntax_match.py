@@ -3,7 +3,7 @@
 
 from pathlib import Path
 from tree_sitter import Language, Parser
-from evaluation.CodeBLEU.parser import (
+from scripts.code_to_code.translation.parser import (
     DFG_python,
     DFG_java,
     DFG_ruby,
@@ -28,7 +28,7 @@ dfg_function = {
 }
 
 root_directory = Path(__file__).parents[2]
-PARSER_LOCATION = root_directory.joinpath("evaluation/CodeBLEU/parser/my-languages.so")
+PARSER_LOCATION = root_directory.joinpath("scripts/code_to_code/translation/parser/my-languages.so")
 
 
 def calc_syntax_match(references, candidate, lang):

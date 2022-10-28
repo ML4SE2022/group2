@@ -30,7 +30,6 @@ TARGET=$3
 PATH_2_DATA=${HOME_DIR}/data/codeXglue/code-to-code/dataset
 CB_EVAL_SCRIPT=${HOME_DIR}/evaluation/CodeBLEU/calc_code_bleu.py
 
-PRETRAIN=${HOME_DIR}/pretrain/${PRETRAINED_MODEL_NAME}
 langs=java,cs
 
 SAVE_DIR=${CURRENT_DIR}/${SOURCE}_${TARGET}
@@ -58,8 +57,6 @@ function generate() {
         --beam 5 \
         --batch-size 4 \
         --langs $langs >$FILE_PREF
-
-    cat $FILE_PREF | grep -P "^H" | sort -V | cut -f 3- | sed 's/\[${TARGET}\]//g' >$FILE_PREF.hyp
 
     echo "CodeXGlue Evaluation" >${RESULT_FILE}
     python ${HOME_DIR}/evaluation/bleu.py \
