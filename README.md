@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>Group 2 PLBART with AST</h1>
+<h1>Group 2: PLBART with AST</h1>
 
 This project covers the implementation of AST for the PLBART model. Our model is fine-tuned using the CodeXGlue dataset. The original PLBART code can be found [here](https://github.com/wasiahmad/PLBART). The original paper is also linked, [Unified Pre-training for Program Understanding and Generation](https://www.aclweb.org/anthology/2021.naacl-main.211/). We used WSL2 for the project.
 
