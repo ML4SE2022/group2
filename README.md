@@ -8,7 +8,28 @@ This project covers the implementation of AST for the PLBART model. Our model is
 
 ______________________________________________________________________
 
-## Setup
+## Docker Setup
+There is the option to use a docker image to run the project. For this image all the dependencies are already installed and you can skip the local setup. The rest of the steps for performing pre-processing, fine-tuning, and evaluation are the same as detailed below. A NVIDIA GPU is necessary to use CUDA with GPU.
+
+Install docker and run the following command to access the image.
+
+```
+docker run -it --gpus all jmoreirakanaley/plbart-ast
+```
+
+Activate the conda environment for running the experiments.
+```
+conda activate plbart
+```
+
+Access the project.
+```
+cd ~/plbart-ast
+```
+
+______________________________________________________________________
+
+## Local Setup
 
 We can setup a conda environment in order to run experiments, the first step is to download the dependencies. We
 assume [anaconda](https://www.anaconda.com/) is installed. The additional requirements
@@ -20,7 +41,7 @@ bash install_env.sh
 ```
 
 ______________________________________________________________________
-## Preprocessing Step
+## Pre-processing Step
 If you wish to only preprocess the dataset follow these steps.
 
 #### Step 1. Build parser
@@ -105,10 +126,11 @@ If you wish to only evaluate the model against the CodeXGLUE benchmark.
 
 #### Step 1. Download PLBART AST fine-tuned checkpoints
 
-The folders for the fine-tuned models can be found [here](https://drive.google.com/drive/folders/1TGbjJLAaHBc4NO9Ntwa6Zh7togpy77Kv). Download both folders and move them to the following directory:
+To download the fine-tuned models for java to c# and c# to java
 
 ```bash
 cd scripts/code_to_code/translation
+bash download.sh
 ```
 
 #### Step 2. Evaluate against CodeXGLUE
