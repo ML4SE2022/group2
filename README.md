@@ -104,15 +104,7 @@ bash build.sh
 cd ../../../..
 ```
 
-#### Step 3. Download PLBART AST fine-tuned checkpoints (skip if already done)
-
-```bash
-cd scripts/code_to_code/translation
-bash download.sh
-cd ../../..
-```
-
-#### Step 4. Prepare the data, train and evaluate PLBART
+#### Step 3. Prepare the data, train and evaluate PLBART
 
 ```bash
 cd scripts/code_to_code/translation
