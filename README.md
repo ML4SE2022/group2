@@ -14,7 +14,7 @@ There is the option to use a docker image to run the project. For this image all
 Install docker and run the following command to access the image.
 
 ```
-docker run -it --gpus all jmoreirakanaley/plbart-ast
+docker run -it --gpus all jmoreirakanaley/plbart-ast:final
 ```
 
 Activate the conda environment for running the experiments.
