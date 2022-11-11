@@ -112,10 +112,11 @@ bash download.sh
 cd ../../..
 ```
 
-#### Step 4. Train and evaluate PLBART
+#### Step 4. Prepare the data, train and evaluate PLBART
 
 ```bash
 cd scripts/code_to_code/translation
+bash prepare.sh src_lang tgt_lang
 bash run.sh GPU_IDS src_lang tgt_lang model_size
 cd ../../..
 ```

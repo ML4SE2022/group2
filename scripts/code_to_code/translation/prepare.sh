@@ -44,6 +44,9 @@ function binarize() {
         --srcdict ${SPM_DIR}/dict.txt \
         --tgtdict ${SPM_DIR}/dict.txt
 
+    cd ../../../data/codeXglue/code-to-code/dataset/data-bin
+    echo '@! 100' >> dict.cs.txt
+    echo '@! 100' >> dict.java.txt
 }
 
 spm_preprocess
