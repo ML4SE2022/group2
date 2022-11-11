@@ -58,6 +58,8 @@ function generate() {
         --batch-size 4 \
         --langs $langs >$FILE_PREF
 
+    cat $FILE_PREF | grep -P "^H" | sort -V | cut -f 3- | sed 's/\[${TARGET}\]//g' >$FILE_PREF.hyp
+    
     echo "CodeXGlue Evaluation" >${RESULT_FILE}
     python ${HOME_DIR}/evaluation/bleu.py \
         --ref $GOUND_TRUTH_PATH \
