@@ -96,7 +96,7 @@ bash download.sh
 cd ..
 ```
 
-#### Step 2. Build parser for CodeBLEU evaluation (skip if parser is already built)
+#### Step 2. Build parser for CodeBLEU evaluation (skip if already done)
 
 ```bash
 cd scripts/code_to_code/translation/parser
@@ -104,11 +104,18 @@ bash build.sh
 cd ../../../..
 ```
 
-#### Step 3. Prepare the data, train and evaluate PLBART
+#### Step 3. Download PLBART AST fine-tuned checkpoints (skip if already done)
 
 ```bash
 cd scripts/code_to_code/translation
-bash prepare.sh src_lang tgt_lang
+bash download.sh
+cd ../../..
+```
+
+#### Step 4. Train and evaluate PLBART
+
+```bash
+cd scripts/code_to_code/translation
 bash run.sh GPU_IDS src_lang tgt_lang model_size
 cd ../../..
 ```
